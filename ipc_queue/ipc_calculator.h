@@ -22,40 +22,28 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include <sys/stat.h>
- 
- 
-// semafori 
-#include <sys/types.h>
-#include <sys/sem.h> 
- 
 #include <sys/wait.h>
+#include <sys/msg.h>
 
 #include "utils.h"
 #define STDIN 0
 #define STDOUT 1
 
-/**
-* @brief Union to handle the semaphores
-*/
-union semun
-{
-	int val;                /// value for SETVAL
-	struct semid_ds* buf;   /// buffer for IPC_STAT, IPC_SET
-	unsigned short*  array; /// array for GETALL, SETALL
-	struct seminfo*  __buf; /// buffer for IPC_INFO
-}; 
 
-int sem_parent;
-int sem_request_result;
-int sem_computing;
-int sem_wait_data;
-    
+enum msg_ids { MSGID_FREECHILD = 1, MSGID_PARENT = 2, MSGID_OFFSET = 3};
+
+struct msg_child
+{
+	long mtype;
+	int id;
+};
+
 /**
 * @brief A single operation to perform
 */
 struct operation
 {
+	long mtype;
 	int id;
     int val1;
     int val2;
@@ -67,12 +55,12 @@ struct operation
 */
 struct result
 {
+	long mtype;
 	int id;
 	float val;
-};
-
-//fifo
-int fifo;
+}; 
+ 
+int msg_queue;
 
 struct operation* operations;
 int *childs_pid; 
@@ -84,26 +72,7 @@ int childs_count = 0;
 void parent();
 void child();
 
-float* results; 
-
-enum sem_type { MUTEX = 0, RESULT_READY = 1 , WAIT_LAST_CHILD = 1, DATA_READ = 2}; 
-
-struct sembuf sops;
-
-/**
- * @brief increases the semaphore by 1
- * @param semid semaphore id
- * @param num semaphore index
- */
-void sem_v(int semid, int num);
- 
-/**
- * @brief decreases the semaphore by 1
- * @param semid semaphore id
- * @param num semaphore index
- */
-void sem_p(int semid, int num);
-
+float* results;
 /**
  * @brief returns the first free computing unit
  * if there arent free computing unit, the first is returned (0)
@@ -120,10 +89,6 @@ void parent();
  */
 void child();
 
- 
- 
- 
- 
  
  
  

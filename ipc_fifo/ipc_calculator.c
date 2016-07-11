@@ -394,8 +394,7 @@ void child()
 		log_msg_ext("[Child] leggi operazione da fifo", id_number);
 		if (read (fifo , &temp_operation, sizeof(struct operation) ) == -1)
 			syserr_ext ("fifo", "read" , __LINE__);
-			
-		results[temp_result.id] = temp_result.val;
+			 
         int val1 = temp_operation.val1;
         int val2 = temp_operation.val2;
         char op = temp_operation.operator; 
