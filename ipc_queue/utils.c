@@ -21,7 +21,6 @@ float process_operation(int val1, int val2, char op)
             return (float)val1 / val2;
             break;
         default:
-            printf("%i %c %i", val1, op, val2);
             syserr("process operation: ", "invalid operator");
             break;
     }
@@ -119,7 +118,7 @@ void log_msg_ext(char *str, int i)
 	if(str != NULL && strlen(str) < 200)
 	{
 		char log_str[255];
-		int len = sprintf(log_str, "[%d] %s\n", i, str);
+		int len = sprintf(log_str, COL_CYN"[%d] %s\n"COL_NRM, i, str);
 		write(fileno(stdout), log_str, len);
 	}
 }

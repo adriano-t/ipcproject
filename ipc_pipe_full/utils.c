@@ -118,7 +118,7 @@ void log_msg_ext(char *str, int i)
 	if(str != NULL && strlen(str) < 200)
 	{
 		char log_str[255];
-		int len = sprintf(log_str, "[%d] %s\n", i, str);
+		int len = sprintf(log_str, COL_CYN"[%d] %s\n"COL_NRM, i, str);
 		write(fileno(stdout), log_str, len);
 	}
 }

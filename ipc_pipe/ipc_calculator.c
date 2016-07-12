@@ -21,7 +21,7 @@ void sem_p(int semid, int num)
   	
 int main(int argc, char *argv[])
 {   
-    char *title = "===================\n  IPC CALCULATOR  \n===================\n";
+    char *title = COL_YEL"\n=======================\n   IPC CALCULATOR  \n=======================\n"COL_NRM;
     int count = (int) write(STDOUT, title, strlen(title));
     if (count == -1)
         syserr (argv[0], "write() failure"); 
@@ -370,7 +370,7 @@ void parent()
 		wait(NULL);
 		
 	// DEBUG: print the results on screen
-	log_msg("----------------------\n Risultati\n------------------------");
+	log_msg(COL_YEL"========================\n Risultati\n========================"COL_NRM);
     char res[255];
 	for(i = 0; i < n_operations; i++)
     {

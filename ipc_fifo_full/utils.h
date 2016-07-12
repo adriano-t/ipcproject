@@ -2,8 +2,8 @@
  *  @brief utils
  */
  
-#ifndef MYLIB_H
-#define MYLIB_H
+#ifndef UTILS_H
+#define UTILS_H
 
 #include <stdio.h>
 #include <string.h>
@@ -19,6 +19,15 @@
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <semaphore.h>
+
+#define COL_NRM  "\x1B[0m"
+#define COL_RED  "\x1B[31m"
+#define COL_GRN  "\x1B[32m"
+#define COL_YEL  "\x1B[33m"
+#define COL_BLU  "\x1B[34m"
+#define COL_MAG  "\x1B[35m"
+#define COL_CYN  "\x1B[36m"
+#define COL_WHT  "\x1B[37m" 
 
 /** 
 * @brief Shared memory structure
