@@ -6,9 +6,9 @@ OBJS = $(SRCS:.c=.o)
 
 # Config:
 CC:=gcc
-CFLAGS:=-c -g -Wall
+CFLAGS:=-c -g -Wall 
 LD:=gcc
-LDFLAGS:=-g
+LDFLAGS:=-g  -pthread
 
 all: ipc_calculator.x
 
